@@ -4,8 +4,8 @@ const test = require('tape'),
   path = require('path');
 
 const directories = {
-  in: path.join(__dirname, 'test', 'in') + path.sep,
-  out: path.join(__dirname, 'test', 'out') + path.sep,
+  in: path.join(__dirname, '..', 'test', 'in') + path.sep,
+  out: path.join(__dirname, '..',  'test', 'out') + path.sep,
 };
 
 function getFullPath(filename, type = 'in') {

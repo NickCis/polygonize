@@ -1,5 +1,5 @@
-const Graph = require('./src/Graph'),
-  EdgeRing = require('./src/EdgeRing'),
+const Graph = require('./Graph'),
+  EdgeRing = require('./EdgeRing'),
   {featureCollection} = require('@turf/helpers');
 
 /** Implementation of GEOSPolygonize function (`geos::operation::polygonize::Polygonizer`).

@@ -8,7 +8,64 @@ const {orientationIndex, envelopeIsEqual, envelopeContains, coordinatesEqual} = 
  *
  * This class is inspired in GEOS's geos::operation::polygonize::EdgeRing
  */
-class EdgeRing extends Array {
+class EdgeRing {
+  constructor() {
+    this.edges = [];
+  }
+
+  /** Add an edge to the ring, inserting it in the last position.
+   *
+   * @param {Edge} edge - Edge to be inserted
+   */
+  push(edge) {
+    // Emulate Array getter ([]) behaviour
+    this[this.edges.length] = edge;
+    this.edges.push(edge);
+  }
+
+  /** Get Edge.
+   *
+   * @param {Number} i - Index
+   * @returns {Edge} - Edge in the i position
+   */
+  get(i) {
+    return this.edges[i];
+  }
+
+  /** Getter of length property.
+   *
+   * @returns {Number} - Length of the edge ring.
+   */
+  get length() {
+    return this.edges.length;
+  }
+
+  /** Similar to Array.prototype.forEach for the list of Edges in the EdgeRing.
+   *
+   * @param {Function} f - The same function to be passed to Array.prototype.forEach
+   */
+  forEach(f) {
+    this.edges.forEach(f);
+  }
+
+  /** Similar to Array.prototype.map for the list of Edges in the EdgeRing.
+   *
+   * @param {Function} f - The same function to be passed to Array.prototype.map
+   * @returns {Array} - The mapped values in the function
+   */
+  map(f) {
+    return this.edges.map(f);
+  }
+
+  /** Similar to Array.prototype.some for the list of Edges in the EdgeRing.
+   *
+   * @param {Function} f - The same function to be passed to Array.prototype.some
+   * @returns {Boolean} - True if an Edge check the condition
+   */
+  some(f) {
+    return this.edges.some(f);
+  }
+
   /** Check if the ring is valid in geomtry terms.
    * A ring must have either 0 or 4 or more points. The first and the last must be
    * equal (in 2D)
@@ -29,17 +86,17 @@ class EdgeRing extends Array {
   isHole() {
     // XXX: Assuming Ring is valid
     // Find highest point
-    const hiIndex = this.reduce((high, edge, i) => {
-        if (edge.from.coordinates[1] > this[high].from.coordinates[1])
+    const hiIndex = this.edges.reduce((high, edge, i) => {
+        if (edge.from.coordinates[1] > this.edges[high].from.coordinates[1])
           high = i;
         return high;
       }, 0),
       iPrev = (hiIndex === 0 ? this.length : hiIndex) - 1,
       iNext = (hiIndex + 1) % this.length,
-      disc = orientationIndex(this[iPrev].from.coordinates, this[hiIndex].from.coordinates, this[iNext].from.coordinates);
+      disc = orientationIndex(this.edges[iPrev].from.coordinates, this.edges[hiIndex].from.coordinates, this.edges[iNext].from.coordinates);
 
     if (disc === 0)
-      return this[iPrev].from.coordinates[0] > this[iNext].from.coordinates[0];
+      return this.edges[iPrev].from.coordinates[0] > this.edges[iNext].from.coordinates[0];
     return disc > 0;
   }
 
@@ -47,7 +104,7 @@ class EdgeRing extends Array {
    * @returns {Feature<MultiPoint>} - Multipoint representation of the EdgeRing
    */
   toMultiPoint() {
-    return multiPoint(this.map(edge => edge.from.coordinates));
+    return multiPoint(this.edges.map(edge => edge.from.coordinates));
   }
 
   /** Creates a Polygon representing the EdgeRing.
@@ -55,8 +112,8 @@ class EdgeRing extends Array {
    * @returns {Feature<Polygon>} - Polygon representation of the Edge Ring
    */
   toPolygon() {
-    const coordinates = this.map(edge => edge.from.coordinates);
-    coordinates.push(this[0].from.coordinates);
+    const coordinates = this.edges.map(edge => edge.from.coordinates);
+    coordinates.push(this.edges[0].from.coordinates);
     return polygon([coordinates]);
   }
 
