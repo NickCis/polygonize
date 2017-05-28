@@ -66,7 +66,8 @@ class Graph {
   /** Removes Dangle Nodes (nodes with grade 1).
    */
   deleteDangles() {
-    Object.values(this.nodes)
+    Object.keys(this.nodes)
+      .map(id => this.nodes[id])
       .forEach(node => this._removeIfDangle(node));
   }
 
@@ -111,7 +112,8 @@ class Graph {
    */
   _computeNextCWEdges(node) {
     if (typeof node === 'undefined') {
-      Object.values(this.nodes).forEach(node => this._computeNextCWEdges(node));
+      Object.keys(this.nodes)
+        .forEach(id => this._computeNextCWEdges(this.nodes[id]));
     } else {
       node.outerEdges.forEach((edge, i) => {
         node.outerEdges[(i === 0 ? node.outerEdges.length : i) - 1].symetric.next = edge;
