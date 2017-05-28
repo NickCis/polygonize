@@ -1,5 +1,4 @@
 const test = require('tape'),
-  { featureCollection, lineString, polygon } = require('@turf/helpers'),
   polygonize = require('./'),
   fs = require('fs'),
   path = require('path');
@@ -9,21 +8,21 @@ const directories = {
   out: path.join(__dirname, 'test', 'out') + path.sep,
 };
 
-function getFullPath(filename, type='in') {
+function getFullPath(filename, type = 'in') {
   return path.join(directories[type], filename);
 }
 
-function readJsonFile(filename, type='in') {
+function readJsonFile(filename, type = 'in') {
   try {
     return JSON.parse(fs.readFileSync(getFullPath(filename, type)));
-  } catch(e) {
+  } catch (e) {
     if (e.code !== 'ENOENT')
       throw e;
     return undefined;
   }
 }
 
-function writeJsonFile(filename, data, type='out') {
+function writeJsonFile(filename, data, type = 'out') {
   fs.writeFileSync(getFullPath(filename, type), JSON.stringify(data));
 }
 
@@ -35,7 +34,7 @@ fs.readdirSync(directories.in)
       name: path.parse(filename).name,
       input: readJsonFile(filename, 'in'),
       output: readJsonFile(filename, 'out'),
-    }
+    };
   })
   .forEach(({filename, name, input, output}) => {
     test(`turf-polygonize :: ${name}`, t => {
