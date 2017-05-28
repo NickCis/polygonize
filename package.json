@@ -4,7 +4,8 @@
   "description": "Javascript implementation of GEOS's Polygonize function",
   "main": "dist/index.js",
   "scripts": {
-    "test": "npm run build && tape dist/*.test.js dist/test.js",
+    "test": "npm run lint && npm run test-es5",
+    "test-es5": "npm run build && tape dist/*.test.js dist/test.js",
     "test-es6": "tape src/*.test.js src/test.js",
     "lint": "eslint .",
     "build": "babel src --out-dir dist",
