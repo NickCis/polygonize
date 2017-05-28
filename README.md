@@ -1,5 +1,7 @@
 # Polygonize
 
+[![Build Status](https://travis-ci.org/NickCis/polygonize.svg?branch=master)](https://travis-ci.org/NickCis/polygonize)
+
 Polygonizes a set of Geometrys which contain linework that represents the edges of a planar graph. It's basically an implementation of [GEOS's Polygonizer](https://github.com/echoz/xlibspatialite/blob/master/geos/include/geos/operation/polygonize/Polygonizer.h).
 
 Although, the algorithm is the same as GEOS, it isn't a literal transcription of the C++ source code. It was rewriten in order to get a more javascript like code.
