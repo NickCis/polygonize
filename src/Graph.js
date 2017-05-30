@@ -1,7 +1,8 @@
 const Node = require('./Node'),
   Edge = require('./Edge'),
   EdgeRing = require('./EdgeRing'),
-  {getCoords} = require('@turf/invariant');
+  {getCoords} = require('@turf/invariant'),
+  {geomEach} = require('@turf/meta');
 
 /** Represents a planar graph of edges and nodes that can be used to compute a
  * polygonization.
@@ -19,8 +20,8 @@ class Graph {
    */
   static fromGeoJson(geoJson) {
     const graph = new Graph();
-    geoJson.features.forEach(feature => {
-      const lineCoordinates = getCoords(feature),
+    geomEach(geoJson, geometry => {
+      const lineCoordinates = getCoords(geometry),
         start = graph.getNode(lineCoordinates[0]),
         end = graph.getNode(lineCoordinates[lineCoordinates.length - 1]);
 
