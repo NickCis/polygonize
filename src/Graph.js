@@ -1,8 +1,7 @@
 const Node = require('./Node'),
   Edge = require('./Edge'),
   EdgeRing = require('./EdgeRing'),
-  {getCoords} = require('@turf/invariant'),
-  {geomEach} = require('@turf/meta');
+  {geomEach, coordReduce} = require('@turf/meta');
 
 /** Validates the geoJson.
  *
@@ -17,7 +16,7 @@ function validateGeoJson(geoJson) {
     geoJson.type !== 'GeometryCollection' &&
     geoJson.type !== 'MultiLineString'
   )
-    throw new Error('Invalid input type. Geojson must be FeatureCollection, GeometryCollection or MultiLineString');
+    throw new Error(`Invalid input type '${geJson.type}'. Geojson must be FeatureCollection, GeometryCollection or MultiLineString`);
 }
 
 /** Represents a planar graph of edges and nodes that can be used to compute a
@@ -40,13 +39,20 @@ class Graph {
     validateGeoJson(geoJson);
 
     const graph = new Graph();
-    // TODO: support MultilineStrings and split LineStrings with many segments
+    // TODO: support MultilineStrings
     geomEach(geoJson, geometry => {
-      const lineCoordinates = getCoords(geometry),
-        start = graph.getNode(lineCoordinates[0]),
-        end = graph.getNode(lineCoordinates[lineCoordinates.length - 1]);
+      if (geometry.type !== 'LineString')
+        throw new Error(`Invalid type '${geometry.type}' in collection`);
+      // When a LineString if formed by many segments, split them
+      coordReduce(geometry, (prev, cur) => {
+        if (prev) {
+          const start = graph.getNode(prev),
+            end = graph.getNode(cur);
 
-      graph.addEdge(start, end);
+          graph.addEdge(start, end);
+        }
+        return cur;
+      });
     });
 
     return graph;
