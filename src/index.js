@@ -17,6 +17,7 @@ const Graph = require('./Graph'),
  * @name polygonize
  * @param {FeatureCollection<LineString>} geoJson - Lines in order to polygonize
  * @returns {FeatureCollection<Polygon>} - Polygons created
+ * @throws {Error} if geoJson is invalid.
  */
 module.exports = function polygonize(geoJson) {
   const graph = Graph.fromGeoJson(geoJson);

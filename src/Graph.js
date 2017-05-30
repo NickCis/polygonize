@@ -4,6 +4,22 @@ const Node = require('./Node'),
   {getCoords} = require('@turf/invariant'),
   {geomEach} = require('@turf/meta');
 
+/** Validates the geoJson.
+ *
+ * @param {Geojson} geoJson - input geoJson.
+ * @throws {Error} if geoJson is invalid.
+ */
+function validateGeoJson(geoJson) {
+  if (!geoJson)
+    throw new Error('No geojson passed');
+
+  if (geoJson.type !== 'FeatureCollection' &&
+    geoJson.type !== 'GeometryCollection' &&
+    geoJson.type !== 'MultiLineString'
+  )
+    throw new Error('Invalid input type. Geojson must be FeatureCollection, GeometryCollection or MultiLineString');
+}
+
 /** Represents a planar graph of edges and nodes that can be used to compute a
  * polygonization.
  *
@@ -15,11 +31,16 @@ const Node = require('./Node'),
  */
 class Graph {
   /** Creates a graph from a GeoJSON.
+   *
    * @param {FeatureCollection<LineString>} geoJson - it must comply with the restrictions detailed in the index
    * @returns {Graph} - The newly created graph
+   * @throws {Error} if geoJson is invalid.
    */
   static fromGeoJson(geoJson) {
+    validateGeoJson(geoJson);
+
     const graph = new Graph();
+    // TODO: support MultilineStrings and split LineStrings with many segments
     geomEach(geoJson, geometry => {
       const lineCoordinates = getCoords(geometry),
         start = graph.getNode(lineCoordinates[0]),
