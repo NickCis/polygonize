@@ -4,7 +4,7 @@ const path = require('path');
 const load = require('load-json-file');
 const write = require('write-json-file');
 const {featureEach} = require('@turf/meta');
-const {featureCollection, lineString} = require('@turf/helpers');
+const {featureCollection, lineString, polygon, point} = require('@turf/helpers');
 const polygonize = require('./');
 
 const directories = {
@@ -42,9 +42,8 @@ test('turf-polygonize -- Geometry Support', t => {
 });
 
 test('turf-polygonize -- throws', t => {
-  // const line = lineString([[0, 0], [1, 1]]);
-
-  // t.throws(() => polygonize(line));
+  t.throws(() => polygonize(point([0, 0])), 'input point');
+  t.throws(() => polygonize(polygon([])), 'input polygon');
   t.end();
 });
 
