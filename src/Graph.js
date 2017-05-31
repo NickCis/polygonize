@@ -110,7 +110,7 @@ class Graph {
   _removeIfDangle(node) {
     // As edges are directed and symetrical, we count only innerEdges
     if (node.innerEdges.length <= 1) {
-      const outerNodes = node.outerEdges.map(e => e.to);
+      const outerNodes = node.getOuterEdges().map(e => e.to);
       this.removeNode(node);
       outerNodes.forEach(n => this._removeIfDangle(n));
     }
@@ -146,8 +146,8 @@ class Graph {
       Object.keys(this.nodes)
         .forEach(id => this._computeNextCWEdges(this.nodes[id]));
     } else {
-      node.outerEdges.forEach((edge, i) => {
-        node.outerEdges[(i === 0 ? node.outerEdges.length : i) - 1].symetric.next = edge;
+      node.getOuterEdges().forEach((edge, i) => {
+        node.getOuterEdge((i === 0 ? node.getOuterEdges().length : i) - 1).symetric.next = edge;
       });
     }
   }
@@ -162,7 +162,7 @@ class Graph {
    * @param {Number} label - Ring's label
    */
   _computeNextCCWEdges(node, label) {
-    const edges = node.outerEdges;
+    const edges = node.getOuterEdges();
     let firstOutDE,
       prevInDE;
 
@@ -268,7 +268,7 @@ class Graph {
     do {
       // getDegree
       let degree = 0;
-      edge.from.outerEdges.forEach(e => {
+      edge.from.getOuterEdges().forEach(e => {
         if (e.label === startEdge.label)
           ++degree;
       });
@@ -306,7 +306,7 @@ class Graph {
    * @param {Node} node - Node to be removed
    */
   removeNode(node) {
-    node.outerEdges.forEach(edge => this.removeEdge(edge));
+    node.getOuterEdges().forEach(edge => this.removeEdge(edge));
     node.innerEdges.forEach(edge => this.removeEdge(edge));
     delete this.nodes[node.id];
   }

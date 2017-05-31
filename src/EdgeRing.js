@@ -11,6 +11,8 @@ const {orientationIndex, envelopeIsEqual, envelopeContains, coordinatesEqual} = 
 class EdgeRing {
   constructor() {
     this.edges = [];
+    this.polygon = undefined; //< Caches Polygon representation
+    this.envelope = undefined; //< Caches Envelope representation
   }
 
   /** Add an edge to the ring, inserting it in the last position.
@@ -21,6 +23,7 @@ class EdgeRing {
     // Emulate Array getter ([]) behaviour
     this[this.edges.length] = edge;
     this.edges.push(edge);
+    this.polygon = this.envelope = undefined;
   }
 
   /** Get Edge.
@@ -108,21 +111,23 @@ class EdgeRing {
   }
 
   /** Creates a Polygon representing the EdgeRing.
-   * XXX: the polygon could be cached
    * @returns {Feature<Polygon>} - Polygon representation of the Edge Ring
    */
   toPolygon() {
+    if (this.polygon)
+      return this.polygon;
     const coordinates = this.edges.map(edge => edge.from.coordinates);
     coordinates.push(this.edges[0].from.coordinates);
-    return polygon([coordinates]);
+    return (this.polygon = polygon([coordinates]));
   }
 
   /** Calculates the envelope of the EdgeRing.
-   * XXX: the envelope could be cached
    * @returns {Feature<Polygon>} - envelope
    */
   getEnvelope() {
-    return envelope(this.toMultiPoint());
+    if (this.envelope)
+      return this.envelope;
+    return (this.envelope = envelope(this.toPolygon()));
   }
 
   /**

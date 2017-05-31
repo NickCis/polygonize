@@ -16,7 +16,7 @@ test('Node.outerEdges CCW order', t => {
   addNode([-1, 1]);
 
   t.deepEqual(
-    center.outerEdges.map(e => e.to.coordinates),
+    center.getOuterEdges().map(e => e.to.coordinates),
     [[-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1], [1, 0], [1, 1], [0, 1]],
     'Outernodes have to be in CCW order'
   );
