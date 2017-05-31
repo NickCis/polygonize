@@ -3,7 +3,12 @@
 	"features": [
 		{
 			"type": "Feature",
-			"properties": {},
+			"properties": {
+				"fill": "#00F",
+				"fill-opacity": 0.3,
+				"stroke": "#00F",
+				"stroke-width": 3
+			},
 			"geometry": {
 				"type": "Polygon",
 				"coordinates": [
@@ -42,7 +47,12 @@
 		},
 		{
 			"type": "Feature",
-			"properties": {},
+			"properties": {
+				"fill": "#00F",
+				"fill-opacity": 0.3,
+				"stroke": "#00F",
+				"stroke-width": 3
+			},
 			"geometry": {
 				"type": "Polygon",
 				"coordinates": [

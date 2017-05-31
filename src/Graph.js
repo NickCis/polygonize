@@ -1,7 +1,8 @@
 const Node = require('./Node'),
   Edge = require('./Edge'),
   EdgeRing = require('./EdgeRing'),
-  {geomEach, coordReduce} = require('@turf/meta');
+  {flattenEach, coordReduce} = require('@turf/meta'),
+  {featureOf} = require('@turf/invariant');
 
 /** Validates the geoJson.
  *
@@ -14,9 +15,11 @@ function validateGeoJson(geoJson) {
 
   if (geoJson.type !== 'FeatureCollection' &&
     geoJson.type !== 'GeometryCollection' &&
-    geoJson.type !== 'MultiLineString'
+    geoJson.type !== 'MultiLineString' &&
+    geoJson.type !== 'LineString' &&
+    geoJson.type !== 'Feature'
   )
-    throw new Error(`Invalid input type '${geoJson.type}'. Geojson must be FeatureCollection, GeometryCollection or MultiLineString`);
+    throw new Error(`Invalid input type '${geoJson.type}'. Geojson must be FeatureCollection, GeometryCollection, LineString, MultiLineString or Feature`);
 }
 
 /** Represents a planar graph of edges and nodes that can be used to compute a
@@ -39,12 +42,10 @@ class Graph {
     validateGeoJson(geoJson);
 
     const graph = new Graph();
-    // TODO: support MultilineStrings
-    geomEach(geoJson, geometry => {
-      if (geometry.type !== 'LineString')
-        throw new Error(`Invalid type '${geometry.type}' in collection`);
+    flattenEach(geoJson, feature => {
+      featureOf(feature, 'LineString', 'Graph::fromGeoJson');
       // When a LineString if formed by many segments, split them
-      coordReduce(geometry, (prev, cur) => {
+      coordReduce(feature, (prev, cur) => {
         if (prev) {
           const start = graph.getNode(prev),
             end = graph.getNode(cur);
