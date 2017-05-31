@@ -24,7 +24,6 @@ class Node {
   }
 
   /** Outer edges are stored CCW order.
-   * XXX: on each add we are ordering, this could be optimized
    * @param {Edge} edge - Edge to add as an outerEdge.
    */
   addOuterEdge(edge) {
