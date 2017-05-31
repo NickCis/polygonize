@@ -9,20 +9,23 @@ Although, the algorithm is the same as GEOS, it isn't a literal transcription of
 ## JSDoc
 
 ```javascript
-/** Implementation of GEOSPolygonize function (`geos::operation::polygonize::Polygonizer`).
+/**
+ * Polygonizes {@link LineString|(Multi)LineString(s)} into {@link Polygons}.
+ *
+ * Implementation of GEOSPolygonize function (`geos::operation::polygonize::Polygonizer`).
  *
  * Polygonizes a set of lines that represents edges in a planar graph. Edges must be correctly
- * noded, i.e., they must only meet at their endpoints. LineStrings must only have two coordinate
- * points.
+ * noded, i.e., they must only meet at their endpoints.
  *
  * The implementation correctly handles:
  *
  * - Dangles: edges which have one or both ends which are not incident on another edge endpoint.
- * - Cut Edges (bridges): edges that are connected at both ends but which do not form part
- *     of a polygon.
+ * - Cut Edges (bridges): edges that are connected at both ends but which do not form part of a polygon.
  *
- * @param {FeatureCollection<LineString>} geoJson - Lines in order to polygonize
- * @returns {FeatureCollection<Polygon>} - Polygons created
+ * @name polygonize
+ * @param {FeatureCollection|Geometry|Feature<LineString|MultiLineString>} geoJson Lines in order to polygonize
+ * @returns {FeatureCollection<Polygon>} Polygons created
+ * @throws {Error} if geoJson is invalid.
  */
 ```
 
@@ -50,21 +53,23 @@ Turned into [polygons](https://github.com/NickCis/polygonize/blob/master/test/ou
 
 ## Documentation
 
+Polygonizes [(Multi)LineString(s)](http://geojson.org/geojson-spec.html#linestring) into [Polygons](Polygons).
+
 Implementation of GEOSPolygonize function (`geos::operation::polygonize::Polygonizer`).
 
-Polygonizes a set of lines that represents edges in a planar graph. Edges must be correctly
-noded, i.e., they must only meet at their endpoints. LineStrings must only have two coordinate
-points.
+Polygonizes a set of lines that represents edges in a planar graph. Edges must be correctly noded, i.e., they must only meet at their endpoints.
 
 The implementation correctly handles:
 
 -   Dangles: edges which have one or both ends which are not incident on another edge endpoint.
--   Cut Edges (bridges): edges that are connected at both ends but which do not form part
-      of a polygon.
+-   Cut Edges (bridges): edges that are connected at both ends but which do not form part of a polygon.
 
 **Parameters**
 
--   `geoJson` **[FeatureCollection](http://geojson.org/geojson-spec.html#feature-collection-objects)&lt;[LineString](http://geojson.org/geojson-spec.html#linestring)>** Lines in order to polygonize
+-   `geojson` **([FeatureCollection](http://geojson.org/geojson-spec.html#feature-collection-objects) \| [Geometry](http://geojson.org/geojson-spec.html#geometry) \| [Feature](http://geojson.org/geojson-spec.html#feature-objects)&lt;([LineString](http://geojson.org/geojson-spec.html#linestring) \| [MultiLineString](http://geojson.org/geojson-spec.html#multilinestring))>)** Lines in order to polygonize
+
+
+-   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** if geoJson is invalid.
 
 Returns **[FeatureCollection](http://geojson.org/geojson-spec.html#feature-collection-objects)&lt;[Polygon](http://geojson.org/geojson-spec.html#polygon)>** Polygons created
 
