@@ -16,14 +16,14 @@ const fixtures = fs.readdirSync(directory).map(filename => {
 /**
  * Single Process Benchmark
  *
- * complex: 36.498ms
- * cutedge: 0.817ms
- * dangle: 0.181ms
- * geometry-collection-two-polygons: 0.199ms
- * kinked-linestring: 0.155ms
- * linestrings: 0.207ms
- * multi-linestring: 0.230ms
- * two-polygons: 0.490ms
+ * complex: 35.348ms
+ * cutedge: 0.725ms
+ * dangle: 0.166ms
+ * geometry-collection-two-polygons: 0.455ms
+ * kinked-linestring: 0.240ms
+ * linestrings: 0.200ms
+ * multi-linestring: 1.657ms
+ * two-polygons: 0.293ms
  */
 for (const {name, geojson} of fixtures) {
   console.time(name);
@@ -34,14 +34,14 @@ for (const {name, geojson} of fixtures) {
 /**
  * Benchmark Results
  *
- * complex x 67.30 ops/sec ±0.93% (68 runs sampled)
- * cutedge x 9,865 ops/sec ±1.46% (90 runs sampled)
- * dangle x 19,582 ops/sec ±1.05% (89 runs sampled)
- * geometry-collection-two-polygons x 13,700 ops/sec ±1.26% (91 runs sampled)
- * kinked-linestring x 16,706 ops/sec ±1.33% (91 runs sampled)
- * linestrings x 10,652 ops/sec ±0.99% (90 runs sampled)
- * multi-linestring x 20,776 ops/sec ±1.31% (92 runs sampled)
- * two-polygons x 13,752 ops/sec ±1.25% (90 runs sampled)
+ * complex x 68.00 ops/sec ±1.09% (69 runs sampled)
+ * cutedge x 10,170 ops/sec ±1.65% (87 runs sampled)
+ * dangle x 20,439 ops/sec ±0.74% (89 runs sampled)
+ * geometry-collection-two-polygons x 14,530 ops/sec ±1.26% (89 runs sampled)
+ * kinked-linestring x 17,258 ops/sec ±1.04% (91 runs sampled)
+ * linestrings x 11,036 ops/sec ±0.56% (90 runs sampled)
+ * multi-linestring x 20,942 ops/sec ±1.26% (91 runs sampled)
+ * two-polygons x 14,522 ops/sec ±1.32% (91 runs sampled)
  */
 const suite = new Benchmark.Suite('turf-transform-polygonize');
 for (const {name, geojson} of fixtures) {
