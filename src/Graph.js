@@ -16,7 +16,7 @@ function validateGeoJson(geoJson) {
     geoJson.type !== 'GeometryCollection' &&
     geoJson.type !== 'MultiLineString'
   )
-    throw new Error(`Invalid input type '${geJson.type}'. Geojson must be FeatureCollection, GeometryCollection or MultiLineString`);
+    throw new Error(`Invalid input type '${geoJson.type}'. Geojson must be FeatureCollection, GeometryCollection or MultiLineString`);
 }
 
 /** Represents a planar graph of edges and nodes that can be used to compute a
