@@ -25,11 +25,6 @@
     "line",
     "linestring"
   ],
-  "babel": {
-    "presets": [
-      "es2015"
-    ]
-  },
   "author": "Nicolas Cisco <@nickcis>",
   "license": "MIT",
   "bugs": {
