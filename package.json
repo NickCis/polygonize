@@ -1,6 +1,6 @@
 {
   "name": "polygonize",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Javascript implementation of GEOS's Polygonize function",
   "main": "dist/index.js",
   "scripts": {
