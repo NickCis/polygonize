@@ -2,3 +2,4 @@
 *test.js
 /test/
 bench.js
+.babelrc
