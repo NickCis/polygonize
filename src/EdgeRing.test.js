@@ -1,7 +1,7 @@
-const test = require('tape'),
-  EdgeRing = require('./EdgeRing'),
-  Edge = require('./Edge'),
-  Node = require('./Node');
+import test from 'tape';
+import EdgeRing from './EdgeRing';
+import Edge from './Edge';
+import Node from './Node';
 
 test('EdgeRing.isHole', t => {
   let edgeRing = new EdgeRing();

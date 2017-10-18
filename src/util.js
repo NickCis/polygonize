@@ -1,5 +1,5 @@
-const inside = require('@turf/inside'),
-  {point} = require('@turf/helpers');
+import inside from '@turf/inside';
+import {point} from '@turf/helpers';
 
 /** Returns the direction of the point q relative to the vector p1 -> p2.
  * Implementation of geos::algorithm::CGAlgorithm::orientationIndex()
@@ -64,7 +64,7 @@ function coordinatesEqual(coord1, coord2) {
   return coord1[0] === coord2[0] && coord1[1] === coord2[1];
 }
 
-module.exports = {
+export {
   orientationIndex,
   envelopeIsEqual,
   envelopeContains,

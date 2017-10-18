@@ -1,8 +1,8 @@
-const Node = require('./Node'),
-  Edge = require('./Edge'),
-  EdgeRing = require('./EdgeRing'),
-  {flattenEach, coordReduce} = require('@turf/meta'),
-  {featureOf} = require('@turf/invariant');
+import Node from './Node';
+import Edge from './Edge';
+import EdgeRing from './EdgeRing';
+import {flattenEach, coordReduce} from '@turf/meta';
+import {featureOf} from '@turf/invariant';
 
 /** Validates the geoJson.
  *
@@ -321,4 +321,4 @@ class Graph {
   }
 }
 
-module.exports = Graph;
+export default Graph;

@@ -1,6 +1,6 @@
-const test = require('tape'),
-  Node = require('./Node'),
-  Edge = require('./Edge');
+import test from 'tape';
+import Node from './Node';
+import Edge from './Edge';
 
 test('Node.outerEdges CCW order', t => {
   const center = new Node([0, 0]),

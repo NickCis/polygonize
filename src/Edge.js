@@ -1,5 +1,5 @@
-const {lineString} = require('@turf/helpers'),
-  {orientationIndex} = require('./util');
+import {lineString} from '@turf/helpers';
+import {orientationIndex} from './util';
 
 /** This class is inspired by GEOS's geos::operation::polygonize::PolygonizeDirectedEdge
  */
@@ -76,4 +76,4 @@ class Edge {
   }
 }
 
-module.exports = Edge;
+export default Edge;

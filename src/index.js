@@ -1,6 +1,6 @@
-const Graph = require('./Graph'),
-  EdgeRing = require('./EdgeRing'),
-  {featureCollection} = require('@turf/helpers');
+import Graph from './Graph';
+import EdgeRing from './EdgeRing';
+import {featureCollection} from '@turf/helpers';
 
 /**
  * Polygonizes {@link LineString|(Multi)LineString(s)} into {@link Polygons}.
@@ -20,7 +20,7 @@ const Graph = require('./Graph'),
  * @returns {FeatureCollection<Polygon>} Polygons created
  * @throws {Error} if geoJson is invalid.
  */
-module.exports = function polygonize(geoJson) {
+function polygonize(geoJson) {
   const graph = Graph.fromGeoJson(geoJson);
 
   // 1. Remove dangle node
@@ -50,4 +50,6 @@ module.exports = function polygonize(geoJson) {
 
   // 5. EdgeRings to Polygons
   return featureCollection(shells.map(shell => shell.toPolygon()));
-};
+}
+
+export default polygonize;

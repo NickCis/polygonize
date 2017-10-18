@@ -1,7 +1,7 @@
-const {orientationIndex, envelopeIsEqual, envelopeContains, coordinatesEqual} = require('./util'),
-  {multiPoint, polygon, point} = require('@turf/helpers'),
-  envelope = require('@turf/envelope'),
-  inside = require('@turf/inside');
+import {orientationIndex, envelopeIsEqual, envelopeContains, coordinatesEqual} from './util';
+import {multiPoint, polygon, point} from '@turf/helpers';
+import envelope from '@turf/envelope';
+import inside from '@turf/inside';
 
 /** Ring of edges which form a polygon.
  * The ring may be either an outer shell or a hole.
@@ -177,4 +177,4 @@ class EdgeRing {
   }
 }
 
-module.exports = EdgeRing;
+export default EdgeRing;

@@ -1,7 +1,7 @@
-const test = require('tape'),
-  Graph = require('./Graph'),
-  Node = require('./Node'),
-  {featureCollection, lineString} = require('@turf/helpers');
+import test from 'tape';
+import Graph from './Graph';
+import Node from './Node';
+import {featureCollection, lineString} from '@turf/helpers';
 
 test('Graph :: fromGeoJson', t => {
   const geoJson = featureCollection(

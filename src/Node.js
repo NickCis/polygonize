@@ -1,4 +1,4 @@
-const {orientationIndex} = require('./util');
+import {orientationIndex} from './util';
 
 class Node {
   static buildId(coordinates) {
@@ -87,4 +87,4 @@ class Node {
   }
 }
 
-module.exports = Node;
+export default Node;
