@@ -1,7 +1,7 @@
 import {orientationIndex, envelopeIsEqual, envelopeContains, coordinatesEqual} from './util';
 import {multiPoint, polygon, point} from '@turf/helpers';
 import envelope from '@turf/envelope';
-import inside from '@turf/inside';
+import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 
 /** Ring of edges which form a polygon.
  * The ring may be either an outer shell or a hole.
@@ -173,7 +173,7 @@ class EdgeRing {
    * @returns {Boolean} - True if it is inside, False otherwise
    */
   inside(point) {
-    return inside(point, this.toPolygon());
+    return booleanPointInPolygon(point, this.toPolygon());
   }
 }
 

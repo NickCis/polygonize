@@ -51,7 +51,7 @@
   "dependencies": {
     "@turf/envelope": "*",
     "@turf/helpers": "*",
-    "@turf/inside": "*",
+    "@turf/boolean-point-in-polygon": "*",
     "@turf/invariant": "*",
     "@turf/meta": "*"
   },

@@ -1,4 +1,4 @@
-import inside from '@turf/inside';
+import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 import {point} from '@turf/helpers';
 
 /** Returns the direction of the point q relative to the vector p1 -> p2.
@@ -51,7 +51,7 @@ function envelopeIsEqual(env1, env2) {
  * @returns {Boolean} - True if env is contained in self
  */
 function envelopeContains(self, env) {
-  return env.geometry.coordinates[0].every(c => inside(point(c), self));
+  return env.geometry.coordinates[0].every(c => booleanPointInPolygon(point(c), self));
 }
 
 /** Checks if two coordinates are equal.
